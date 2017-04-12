@@ -1,0 +1,9 @@
+# api-backend.yaml
+
+service: api-backend
+runtime: python27
+threadsafe: true
+
+handlers:
+- url: /.*
+  script: api-backend.api.app

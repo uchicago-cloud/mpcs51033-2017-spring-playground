@@ -1,0 +1,14 @@
+# You can have a maximum of 10 queues (not including the default queue)
+
+queue:
+  # Change the refresh rate of the default queue from 5/s to 1/s.
+- name: default
+  rate: 1/s
+
+- name: worker-a
+  bucket_size: 40
+  max_concurrent_requests: 10
+  rate: 5/s
+
+- name: worker-b
+  rate: 1/s

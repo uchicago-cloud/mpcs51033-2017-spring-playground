@@ -1,0 +1,39 @@
+runtime: python27
+threadsafe: true
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /.*
+  script: default.main.app
+
+libraries:
+- name: webapp2
+  version: latest
+- name: jinja2
+  version: latest
+
+builtins:
+- deferred: on
+- appstats: on
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: 'myapp.settings'
+
+#error_handlers:
+#  - file: default_error.html
+#  - error_code: over_quota
+#    file: over_quota.html
+
+#
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+- ^(.*/)?\.bak$
+- ^(.*/)?\.txt$
+- ^(.*/)?\.sql3$
