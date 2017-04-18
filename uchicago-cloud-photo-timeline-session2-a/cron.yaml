@@ -3,5 +3,8 @@
 cron:
 - description: daily summary job
   url: /tasks/summary_email/
-  #target: beta
   schedule: every 1 minutes
+
+- description: weekly summary job
+  url: /logging/
+  schedule: every 5 minutes

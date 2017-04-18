@@ -79,6 +79,7 @@ class UserHandler(webapp2.RequestHandler):
             dict['date'] = str(photo.date)
             json_array.append(dict)
         # Somewhere else
+        
         deferred.defer(do_something_expensive, "Hello, world!", 42, c=True)
         return json.dumps({'results' : json_array})
 
@@ -164,6 +165,11 @@ class LoggingHandler(webapp2.RequestHandler):
     """Demonstrate the different levels of logging"""
 
     def get(self):
+        task = taskqueue.add(
+            url='/logging_task/',
+            params={'message': 'hi'}
+        )
+
         logging.debug('This is a debug message')
         logging.info('This is an info message')
         logging.warning('This is a warning message')
@@ -176,6 +182,16 @@ class LoggingHandler(webapp2.RequestHandler):
             logging.exception('A example exception log.')
 
         self.response.out.write('Logging example.')
+
+class LoggingTaskHandler(webapp2.RequestHandler):
+    """Handler for task queue emails"""
+    def post(self):
+        message = self.request.get('message', default_value='default')
+        logging.info('This is an info message')
+        mail.send_mail(sender="me@uchicago-mobi-photo-timeline.appspotmail.com",
+        to="abinkowski@uchicago.edu",
+        subject="Task Queue!",
+        body="A new photo has been uploaded to your account.")
 
 
 class EmailTaskHandler(webapp2.RequestHandler):
@@ -202,6 +218,7 @@ class CronTasksSummaryEmail(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', HomeHandler),
     ('/email_task/', EmailTaskHandler),
+    ('/logging_task/', LoggingTaskHandler),
     ('/tasks/summary_email/', CronTasksSummaryEmail),
     webapp2.Route('/logging/', handler=LoggingHandler),
     webapp2.Route('/image/<key>/', handler=ImageHandler),
