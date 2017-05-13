@@ -44,7 +44,8 @@ class MessagesTableViewController: UITableViewController, FIRInviteDelegate {
       
     // Standard UI way
 
-    let myDynamicLink = "https://a795j.app.goo.gl/6SuK"
+    //let myDynamicLink = "https://a795j.app.goo.gl/6SuK"
+    let myDynamicLink = "https://a795j.app.goo.gl/?link=http://uchicago.mobi/groups/sushi&isi=284910350&ibi=mobi.uchicago.firechat"
     let msg = "Hey, check this out: " + myDynamicLink
     let shareSheet = UIActivityViewController(activityItems: [ msg ],
                                               applicationActivities: nil)

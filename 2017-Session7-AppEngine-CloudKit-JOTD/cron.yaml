@@ -1,0 +1,12 @@
+# cron.yaml
+#
+# To test in developement server goto http://localhost:8000/cron
+#
+
+cron:
+- description: daily joke summary and notification
+  url: /tasks/jokeoftheday/
+  schedule: every day 08:00
+  retry_parameters:
+    min_backoff_seconds: 60
+    max_doublings: 5
